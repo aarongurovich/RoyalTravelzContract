@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel - World-Class Journeys</title>
+    <style>
+        @font-face {
+            font-family: 'Agrandir Wide';
+            src: url('data:font/woff2;base64,') format('woff2');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        @keyframes diamondRotate {
+            0% {
+                transform: rotate(45deg);
+            }
+            100% {
+                transform: rotate(405deg);
+            }
+        }
+
+        body {
+            font-family: 'Agrandir Wide', 'Arial Black', Arial, sans-serif;
+            font-weight: bold;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 100vh;
+            background: url('images/background.png') center/cover no-repeat;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+        }
+
+        /* --- FIX: More robust rule for locking scroll on all devices --- */
+        html.modal-open {
+            overflow: hidden;
+        }
+        
+        body.modal-open {
+            overflow: hidden;
+        }
+        /* --- END FIX --- */
+
+        .container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(139, 69, 19, 0.3), rgba(210, 180, 140, 0.2));
+            z-index: -1;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            position: absolute;
+            top: 2vh;
+            left: 50px;
+            z-index: 10;
+        }
+
+        .logo {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-image {
+            width: 12vw;
+            height: 12vw;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+            animation: fadeInDown 1s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-image:hover {
+            transform: scale(1.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 8vh 2rem 2rem 2rem;
+            text-align: center;
+            z-index: 5;
+        }
+
+        .travel-logo-header {
+            margin-bottom: 1rem;
+            animation: fadeInDown 1.2s ease-out 0.3s both;
+            text-align: center;
+        }
+
+        .travel-logo {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .travel-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .main-headline {
+            font-size: clamp(1.2rem, 5.5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: clamp(1px, 0.3vw, 8px);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            width: 90vw;
+            max-width: 1100px;
+            padding: 0 1rem;
+            text-align: center;
+            box-sizing: border-box;
+            animation: fadeInUp 1.5s ease-out 0.6s both;
+            margin: 0 auto 1rem auto;
+        }
+
+        .decorative-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0 2rem 0;
+            position: relative;
+            animation: scaleIn 1s ease-out 0.9s both;
+        }
+
+        .line-left, .line-right {
+            width: calc((100vw - 30vh - 120px) / 2);
+            height: clamp(2px, 0.4vh, 4px);
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
+            position: relative;
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+            min-width: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .line-left::after, .line-right::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -200%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .line-left::before, .line-right::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: translateY(-50%);
+        }
+
+        .line-right {
+            background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
+        }
+
+        .line-right::before {
+            background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.4), transparent);
+        }
+
+        .diamond-center {
+            width: clamp(12px, 2vw, 24px);
+            height: clamp(12px, 2vw, 24px);
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8));
+            transform: rotate(45deg);
+            margin: 0 clamp(10px, 2vw, 30px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.4), inset 0 0 6px rgba(255, 255, 255, 0.2);
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .diamond-center:hover {
+            animation: diamondRotate 0.6s ease-in-out;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .diamond-center::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60%;
+            height: 60%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%) rotate(45deg);
+            border-radius: 1px;
+        }
+
+        /* Content Below Headline */
+        .content-below {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(1rem, 4vw, 3rem);
+            width: 100%;
+            max-width: 1200px;
+            flex-wrap: wrap;
+            margin-top: 0;
+        }
+
+        .book-now-btn {
+            border: none;
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+            flex-shrink: 0;
+            order: 2;
+            z-index: 10;
+            align-self: center;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1.8s ease-out 1.2s both;
+        }
+
+        .book-now-btn:hover {
+            transform: scale(1.1);
+            filter: brightness(1.1) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+        }
+
+        .book-now-btn:active {
+            transform: scale(0.95);
+        }
+
+        .book-now-image {
+            height: clamp(80px, 12vh, 180px);
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        /* Video Frames */
+        .video-frames {
+            display: flex;
+            align-items: center;
+            gap: clamp(1rem, 4vw, 3rem);
+        }
+
+        .video-frame {
+            position: relative;
+            width: clamp(220px, 28vh, 350px);
+            height: clamp(264px, 33.6vh, 420px);
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .video-frame.left-frame {
+            order: 1;
+        }
+
+        .video-frame.right-frame {
+            order: 3;
+        }
+
+
+        /* Large screen absolute positioning */
+        @media (min-width: 1440px) {
+            .main-content {
+                padding: 0;
+                position: relative;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 4vh;
+                max-height: 100vh;
+                overflow: hidden;
+                align-items: center;
+            }
+            
+            .main-headline {
+                font-size: clamp(2rem, 3vw, 3rem);
+                width: 90vw;
+                max-width: 1200px;
+                margin: 0 auto 1.5rem auto;
+                text-align: center;
+                letter-spacing: clamp(2px, 0.3vw, 6px);
+                padding: 0 2rem;
+            }
+            
+            .decorative-line {
+                width: 100vw;
+                margin: 1.5rem auto 2rem auto;
+                padding: 0 2rem;
+            }
+            
+            .content-below {
+                gap: 3rem;
+                margin-top: -1.3rem;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: nowrap;
+            }
+            
+            .video-frame {
+                width: clamp(280px, 22vw, 350px);
+                height: clamp(336px, 26.4vw, 420px);
+            }
+            
+            .book-now-image {
+                height: clamp(100px, 12vh, 160px);
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .main-content {
+                padding: 0;
+                padding-top: 6vh;
+                width: 100vw;
+            }
+            
+            .main-headline {
+                font-size: clamp(2.2rem, 3.5vw, 4rem);
+                width: 100vw;
+                margin: 0 auto 2rem auto;
+                padding: 0 3rem;
+            }
+            
+            .decorative-line {
+                width: 100vw;
+                padding: 0 3rem;
+            }
+            
+            .content-below {
+                gap: 4rem;
+                margin-top: -1.8rem;
+            }
+            
+            .video-frame {
+                width: clamp(320px, 20vw, 400px);
+                height: clamp(384px, 24vw, 480px);
+            }
+            
+            .book-now-image {
+                height: clamp(120px, 14vh, 180px);
+            }
+        }
+
+        .frame-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .video-content {
+            position: absolute;
+            top: 2.45rem;
+            left: 1rem;
+            right: 0rem;
+            bottom: 2rem;
+            width: 80%;
+            height: 80%;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 0;
+            overflow: hidden;
+            cursor: pointer;
+            z-index: 2;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        .video-content:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            z-index: 3;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .play-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Background overlay animation */
+        .background-overlay {
+            animation: fadeInUp 2s ease-out;
+        }
+
+        /* Stagger animations for mobile */
+        @media (max-width: 768px) {
+            .content-below {
+                flex-direction: column;
+                gap: 1.5rem;
+                margin-top: 1rem;
+            }
+            
+            .video-frame.left-frame {
+                order: 1;
+            }
+            
+            .book-now-btn {
+                order: 2;
+            }
+            
+            .video-frame.right-frame {
+                order: 3;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-headline {
+                font-size: clamp(1.2rem, 3.5vw, 2.5rem);
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-section {
+                top: 1.5vh;
+                left: 30px;
+            }
+            
+            .main-content {
+                padding: 12vh 1rem 2rem 1rem;
+                text-align: center;
+            }
+            
+            .main-headline {
+                font-size: clamp(1rem, 3vw, 2rem);
+                letter-spacing: 2px;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+            
+            .travel-logo {
+                height: 80px;
+            }
+            
+            .book-now-image {
+                height: clamp(70px, 10vh, 150px);
+            }
+            
+            .video-frame {
+                width: clamp(150px, 35vw, 250px);
+                height: clamp(180px, 42vw, 300px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-section {
+                top: 1vh;
+                left: 20px;
+            }
+            
+            .main-content {
+                padding: 15vh 1rem 2rem 1rem;
+                text-align: center;
+            }
+            
+            .travel-logo {
+                height: 70px;
+            }
+            
+            .main-headline {
+                font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+                letter-spacing: 1px;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+            
+            .book-now-image {
+                height: clamp(60px, 8vh, 120px);
+            }
+            
+            .video-frame {
+                width: clamp(100px, 35vw, 160px);
+                height: clamp(120px, 42vw, 192px);
+            }
+        }
+
+        /* Specific optimization for 335x667 and similar small screens */
+        @media (max-width: 375px) {
+            .content-below {
+                gap: 1rem;
+                margin-top: 0.5rem;
+            }
+            
+            .video-frame {
+                width: 100px;
+                height: 120px;
+            }
+            
+            .book-now-image {
+                height: clamp(50px, 7vh, 100px);
+            }
+            
+            .main-headline {
+                font-size: clamp(0.8rem, 2.2vw, 1.3rem);
+                margin-bottom: 0.8rem;
+            }
+            
+            .decorative-line {
+                margin: 0.8rem 0 1.5rem 0;
+            }
+            
+            .diamond-center {
+                width: 10px;
+                height: 10px;
+                margin: 0 15px;
+            }
+            
+            .line-left, .line-right {
+                height: 2px;
+            }
+        }
+
+        /* Second Page Styles */
+        .second-page {
+            min-height: 100vh;
+            height: auto;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+            box-sizing: border-box;
+        }
+
+        /* Booking Form Modal Styles */
+        .booking-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .booking-modal.show {
+            display: flex;
+            position: fixed;
+            overflow: hidden;
+        }
+
+        .booking-form-container {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: scroll;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: scaleIn 0.4s ease-out;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+
+        .booking-form-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .booking-form-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-input, .form-select {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            color: #D4AF37;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #fff 0%, #e8e8e8 100%);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive for booking form */
+        @media (max-width: 768px) {
+            .booking-form-container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            .booking-form-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .second-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23000" opacity="0.02"/><circle cx="75" cy="75" r="1" fill="%23000" opacity="0.02"/><circle cx="50" cy="10" r="1" fill="%23000" opacity="0.02"/><circle cx="10" cy="90" r="1" fill="%23000" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .second-page-content {
+            max-width: 1200px;
+            width: 100%;
+            height: auto;
+            min-height: auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 2rem 0;
+            box-sizing: border-box;
+        }
+
+        .dream-vacation-title {
+            font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+            font-weight: bold;
+            color: #D4AF37;
+            margin-bottom: 0.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-out;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .luxury-subtitle {
+            font-size: clamp(0.9rem, 1.6vw, 1.3rem);
+            font-weight: bold;
+            color: #B8860B;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .agency-description {
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.6rem;
+            line-height: 1.4;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease-out 0.4s both;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .experience-title {
+            font-size: clamp(1.1rem, 2vw, 1.6rem);
+            font-weight: bold;
+            color: #D4AF37;
+            margin-bottom: 0.6rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-out 0.6s both;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0.8rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 1200px) {
+            .features-grid {
+                width: 100vw;
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 900px;
+                gap: 1.2rem;
+            }
+            
+            .second-page {
+                padding: 1rem 3rem;
+            }
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out both;
+            min-height: 80px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .feature-item:nth-child(1) { animation-delay: 0.8s; }
+        .feature-item:nth-child(2) { animation-delay: 1.0s; }
+        .feature-item:nth-child(3) { animation-delay: 1.2s; }
+        .feature-item:nth-child(4) { animation-delay: 1.4s; }
+        .feature-item:nth-child(5) { animation-delay: 1.6s; }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .feature-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #D4AF37, #B8860B);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.7rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover .feature-icon {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .feature-icon::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-content h3 {
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.3rem;
+            line-height: 1.2;
+            text-align: left;
+        }
+
+        .feature-content p {
+            font-size: clamp(0.7rem, 0.9vw, 0.85rem);
+            color: #666;
+            line-height: 1.5;
+            font-weight: normal;
+            text-align: left;
+        }
+
+        /* Responsive for second page */
+        @media (min-width: 1440px) {
+            .second-page {
+                padding: 1rem 4rem;
+            }
+            
+            .features-grid {
+                gap: 1.2rem;
+            }
+            
+            .feature-item {
+                padding: 1.2rem;
+            }
+            
+            .feature-icon {
+                width: 40px;
+                height: 40px;
+                margin-right: 0.8rem;
+            }
+            
+            .feature-icon::after {
+                width: 12px;
+                height: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .second-page {
+                padding: 4rem 1rem 2rem 1rem;
+                min-height: 100vh;
+                height: auto;
+            }
+            
+            .second-page-content {
+                padding: 2rem 0;
+                min-height: auto;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .feature-item {
+                flex-direction: column;
+                text-align: left;
+                padding: 1rem;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .feature-icon {
+                margin-right: 0;
+                margin-bottom: 0.8rem;
+                width: 35px;
+                height: 35px;
+            }
+            
+            .feature-icon::after {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .feature-content {
+                text-align: center;
+            }
+            
+            .feature-content h3 {
+                text-align: center;
+            }
+            
+            .feature-content p {
+                text-align: center;
+            }
+            
+            .agency-description {
+                padding: 0 1rem;
+                font-size: clamp(0.75rem, 1vw, 0.9rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .second-page {
+                padding: 5rem 0.5rem 3rem 0.5rem;
+                min-height: 100vh;
+                height: auto;
+            }
+            
+            .second-page-content {
+                padding: 2rem 0;
+                min-height: auto;
+            }
+            
+            .feature-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 0.8rem;
+            }
+            
+            .features-grid {
+                gap: 0.8rem;
+                padding: 0 0.25rem;
+            }
+            
+            .feature-icon {
+                width: 30px;
+                height: 30px;
+                margin-right: 0;
+                margin-bottom: 0.6rem;
+            }
+            
+            .feature-icon::after {
+                width: 8px;
+                height: 8px;
+            }
+            
+            .feature-content {
+                text-align: center;
+            }
+            
+            .feature-content h3 {
+                text-align: center;
+            }
+            
+            .feature-content p {
+                text-align: center;
+            }
+            
+            .agency-description {
+                padding: 0 1rem;
+                font-size: clamp(0.7rem, 0.9vw, 0.85rem);
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 390px) {
+            .second-page {
+                padding: 6rem 0.5rem 3rem 0.5rem;
+                min-height: 100vh;
+                height: auto;
+            }
+            
+            .second-page-content {
+                padding: 2rem 0;
+            }
+        }
+        
+        /* Very tall screens */
+        @media (min-height: 900px) {
+            .second-page {
+                justify-content: center;
+            }
+            
+            .second-page-content {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <div class="logo">
+                <img src="images/starofdavid.png" alt="Star of David Logo" class="logo-image">
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="travel-logo-header">
+                <img src="images/travel.png" alt="Travel Logo" class="travel-logo">
+            </div>
+            <h2 class="main-headline">WORLD-CLASS JOURNEYS: EXPLORE<br>THE GLOBE IN STYLE</h2>
+            
+            <div class="decorative-line">
+                <div class="line-left"></div>
+                <div class="diamond-center"></div>
+                <div class="line-right"></div>
+            </div>
+
+            <div class="content-below">
+                <div class="video-frame left-frame">
+                    <img src="images/frame.png" alt="Ornate Frame" class="frame-image">
+                </div>
+
+                <button class="book-now-btn" id="bookNowBtn">
+                    <img src="images/booknow.png" alt="Book Now" class="book-now-image">
+                </button>
+
+                <div class="video-frame right-frame">
+                    <img src="images/frame.png" alt="Ornate Frame" class="frame-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="background-overlay"></div>
+    </div>
+
+    <div class="second-page">
+        <div class="second-page-content">
+            <h1 class="dream-vacation-title">YOUR DREAM VACATION STARTS HERE</h1>
+            <h2 class="luxury-subtitle">LUXURY. QUALITY. CARE. EXPERIENCE.</h2>
+            
+            <p class="agency-description">
+                WE'RE A FULL-SERVICE TRAVEL AGENCY DEDICATED TO CRAFTING PERSONALIZED JOURNEYS FOR EVERY KIND OF TRAVELER — ANYWHERE IN THE WORLD.
+            </p>
+            
+            <h3 class="experience-title">THE TRAVEL EXPERIENCE YOU DESERVE</h3>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon"></div>
+                    <div class="feature-content">
+                        <h3>LUXURY TRAVEL, TAILORED FOR YOU:</h3>
+                        <p>ENJOY HIGH-END ACCOMMODATIONS, EXCLUSIVE EXPERIENCES, AND PREMIUM SERVICE FROM START TO FINISH.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon"></div>
+                    <div class="feature-content">
+                        <h3>EXCEPTIONAL QUALITY:</h3>
+                        <p>WE WORK WITH TRUSTED PROVIDERS TO ENSURE EVERY PART OF YOUR JOURNEY MEETS THE HIGHEST STANDARDS.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon"></div>
+                    <div class="feature-content">
+                        <h3>WE TAKE CARE OF EVERYTHING:</h3>
+                        <p>FLIGHTS, HOTELS, EXCURSIONS, TRAVEL INSURANCE — WE HANDLE EVERY DETAIL SO YOU CAN TRAVEL STRESS-FREE.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon"></div>
+                    <div class="feature-content">
+                        <h3>YEARS OF INDUSTRY EXPERIENCE:</h3>
+                        <p>OUR EXPERT TEAM BRINGS GLOBAL CONNECTIONS AND DEEP KNOWLEDGE TO CRAFT SEAMLESS, MEMORABLE ITINERARIES.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon"></div>
+                    <div class="feature-content">
+                        <h3>TRIPS FOR ALL TRAVELERS:</h3>
+                        <p>WHETHER YOU'RE PLANNING A ROMANTIC GETAWAY, A FAMILY VACATION, OR A SOLO ADVENTURE — WE OFFER PACKAGES FOR COUPLES, FAMILIES, AND INDIVIDUALS OF ALL AGES.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="booking-modal" id="bookingModal">
+        <div class="booking-form-container">
+            <button class="close-btn" id="closeModalBtn">&times;</button>
+            <div class="booking-form-header">
+                <h2 class="booking-form-title">Next stop: Paradise!</h2>
+            </div>
+            <form class="booking-form" id="bookingForm">
+                <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-input" name="firstName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-input" name="lastName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" class="form-input" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Number of travelers</label>
+                    <select class="form-select" name="travelers" required>
+                        <option value="">Select number</option>
+                        <option value="1">1 traveler</option>
+                        <option value="2">2 travelers</option>
+                        <option value="3">3 travelers</option>
+                        <option value="4">4 travelers</option>
+                        <option value="5">5 travelers</option>
+                        <option value="6">6 travelers</option>
+                        <option value="7+">8 travelers</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Preferred location</label>
+                    <input type="text" class="form-input" name="location" placeholder="Where would you like to go?" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Month of travel</label>
+                    <select class="form-select" name="month" required>
+                        <option value="">Select month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Budget</label>
+                    <select class="form-select" name="budget" required>
+                        <option value="">Select budget</option>
+                        <option value="under-5000">$5,000USD-$7,000USD</option>
+                        <option value="5000-10000">$7,000USD - $10,000USD</option>
+                        <option value="10000-20000">$10,000USD - $15,000USD</option>
+                        <option value="20000-50000">$15,000USD+</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">SEND</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- FIX: Get references to all necessary elements ---
+            const htmlEl = document.documentElement;
+            const bodyEl = document.body;
+            const bookNowBtn = document.getElementById('bookNowBtn');
+            const modal = document.getElementById('bookingModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const bookingForm = document.getElementById('bookingForm');
+
+            // --- FIX: Functions to toggle classes on both html and body ---
+            function showModal() {
+                modal.classList.add('show');
+                htmlEl.classList.add('modal-open');
+                bodyEl.classList.add('modal-open');
+            }
+
+            function hideModal() {
+                modal.classList.remove('show');
+                htmlEl.classList.remove('modal-open');
+                bodyEl.classList.remove('modal-open');
+            }
+
+            // Show modal
+            bookNowBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showModal();
+            });
+
+            // Close modal functionality
+            closeModalBtn.addEventListener('click', hideModal);
+
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    hideModal();
+                }
+            });
+
+            // Handle form submission
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Get form data
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+
+                // Simulate form submission
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'SENDING...';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    alert('Thank you for your interest! Our travel specialists will contact you within 24 hours to plan your world-class journey.');
+                    hideModal();
+                    this.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 2000);
+            });
+
+            // Add hover effects to video frames
+            const videoFrames = document.querySelectorAll('.video-frame');
+            videoFrames.forEach(frame => {
+                frame.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                });
+                frame.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Diamond center click animation
+            const diamond = document.querySelector('.diamond-center');
+            diamond.addEventListener('click', function() {
+                this.style.animation = 'diamondRotate 0.6s ease-in-out';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 600);
+            });
+
+            // Add loading animation completion
+            setTimeout(() => {
+                bodyEl.classList.add('loaded');
+            }, 2000);
+        });
+
+        // Performance optimization
+        window.addEventListener('load', function() {
+            // Preload critical images
+            const criticalImages = [
+                'images/travel.png',
+                'images/starofdavid.png',
+                'images/booknow.png',
+                'images/background.jpg',
+                'images/frame.png',
+                'images/design.png'
+            ];
+            
+            criticalImages.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        });
+    </script>
+</body>
+</html>
