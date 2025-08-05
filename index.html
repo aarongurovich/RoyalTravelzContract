@@ -460,26 +460,16 @@
             pointer-events: none;
         }
 
-        /* --- NEW --- Video Styling --- */
         .frame-video {
             position: absolute;
-            /* These percentages position the video inside the transparent part of the frame.
-               You may need to fine-tune these values to perfectly match your frame.png image.
-            */
-            top: 11.5%;
+            top: 12%;
             left: 11.5%;
             width: 77%;
-            height: 78.5%;
-
-            /* This makes the video fill the container without black bars */
+            height: 77.5%;
             object-fit: cover; 
-            
-            /* Place video behind the frame image (which has z-index: 1) */
             z-index: 0;
         }
-        /* --- END NEW --- */
 
-        /* Background overlay animation */
         .background-overlay {
             animation: fadeInUp 2s ease-out;
         }
@@ -552,7 +542,8 @@
             }
             
             .main-content {
-                padding: 15vh 1rem 2rem 1rem;
+                /* FIX: Reduce top padding to prevent overflow on tall screens */
+                padding: 10vh 1rem 2rem 1rem;
                 text-align: center;
             }
             
@@ -577,10 +568,15 @@
             }
         }
 
-        /* Specific optimization for 335x667 and similar small screens */
+        /* Specific optimization for iPhone Pro and similar small, tall screens */
         @media (max-width: 375px) {
+            .main-content {
+                /* FIX: Further reduce top padding */
+                padding-top: 8vh;
+            }
             .content-below {
-                gap: 1rem;
+                /* FIX: Tighten gap */
+                gap: 0.8rem;
                 margin-top: 0.5rem;
             }
             
@@ -599,7 +595,8 @@
             }
             
             .decorative-line {
-                margin: 0.8rem 0 1.5rem 0;
+                /* FIX: Tighten margins */
+                margin: 0.6rem 0 1.2rem 0;
             }
             
             .diamond-center {
@@ -1166,7 +1163,7 @@
 
                 <div class="video-frame right-frame">
                     <img src="images/frame.png" alt="Ornate Frame" class="frame-image">
-                    <video class="frame-video" autoplay loop muted playsinline>
+                     <video class="frame-video" autoplay loop muted playsinline>
                         <source src="images/movie2.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
