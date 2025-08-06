@@ -194,7 +194,7 @@
         }
 
         .travel-logo {
-            height: 120px;
+            height: 150px;
             width: auto;
             object-fit: contain;
             transition: transform 0.3s ease;
@@ -217,13 +217,15 @@
             box-sizing: border-box;
             animation: fadeInUp 1.5s ease-out 0.6s both;
             margin: 0 auto 1rem auto;
+            margin-top: 20px !important;
         }
 
         .decorative-line {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 1rem 0 2rem 0;
+            margin: 0 0 2rem 0;
+            margin-top: 0px !important;
             position: relative;
             animation: scaleIn 1s ease-out 0.9s both;
         }
@@ -522,7 +524,7 @@
             }
             
             .travel-logo {
-                height: 80px;
+                height: 100px;
             }
             
             .book-now-image {
@@ -548,7 +550,7 @@
             }
             
             .travel-logo {
-                height: 70px;
+                height: 95px;
             }
             
             .main-headline {
@@ -735,6 +737,10 @@
             background: white;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
+        }
+
+        .form-select:invalid {
+        color: rgba(51, 51, 51, 0.7);
         }
 
         .form-select {
@@ -1189,7 +1195,7 @@
                 <div class="feature-item">
                     <div class="feature-icon"></div>
                     <div class="feature-content">
-                        <h3>LUXURY TRAVEL, TAILORED FOR YOU:</h3>
+                        <h3>LUXURY TRAVEL, TAILORED FOR YOU</h3>
                         <p>ENJOY HIGH-END ACCOMMODATIONS, EXCLUSIVE EXPERIENCES, AND PREMIUM SERVICE FROM START TO FINISH.</p>
                     </div>
                 </div>
@@ -1197,7 +1203,7 @@
                 <div class="feature-item">
                     <div class="feature-icon"></div>
                     <div class="feature-content">
-                        <h3>EXCEPTIONAL QUALITY:</h3>
+                        <h3>EXCEPTIONAL QUALITY</h3>
                         <p>WE WORK WITH TRUSTED PROVIDERS TO ENSURE EVERY PART OF YOUR JOURNEY MEETS THE HIGHEST STANDARDS.</p>
                     </div>
                 </div>
@@ -1205,7 +1211,7 @@
                 <div class="feature-item">
                     <div class="feature-icon"></div>
                     <div class="feature-content">
-                        <h3>WE TAKE CARE OF EVERYTHING:</h3>
+                        <h3>WE TAKE CARE OF EVERYTHING</h3>
                         <p>FLIGHTS, HOTELS, EXCURSIONS, TRAVEL INSURANCE — WE HANDLE EVERY DETAIL SO YOU CAN TRAVEL STRESS-FREE.</p>
                     </div>
                 </div>
@@ -1213,7 +1219,7 @@
                 <div class="feature-item">
                     <div class="feature-icon"></div>
                     <div class="feature-content">
-                        <h3>YEARS OF INDUSTRY EXPERIENCE:</h3>
+                        <h3>YEARS OF INDUSTRY EXPERIENCE</h3>
                         <p>OUR EXPERT TEAM BRINGS GLOBAL CONNECTIONS AND DEEP KNOWLEDGE TO CRAFT SEAMLESS, MEMORABLE ITINERARIES.</p>
                     </div>
                 </div>
@@ -1221,7 +1227,7 @@
                 <div class="feature-item">
                     <div class="feature-icon"></div>
                     <div class="feature-content">
-                        <h3>TRIPS FOR ALL TRAVELERS:</h3>
+                        <h3>TRIPS FOR ALL TRAVELERS</h3>
                         <p>WHETHER YOU'RE PLANNING A ROMANTIC GETAWAY, A FAMILY VACATION, OR A SOLO ADVENTURE — WE OFFER PACKAGES FOR COUPLES, FAMILIES, AND INDIVIDUALS OF ALL AGES.</p>
                     </div>
                 </div>
@@ -1259,7 +1265,7 @@
                 <div class="form-group">
                     <label class="form-label">Number of travelers</label>
                     <select class="form-select" name="travelers" required>
-                        <option value="">Select number</option>
+                        <option value="" disabled selected hidden>Select number</option>
                         <option value="1">1 traveler</option>
                         <option value="2">2 travelers</option>
                         <option value="3">3 travelers</option>
