@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Travel - World-Class Journeys</title>
     <style>
         @font-face {
@@ -474,6 +475,158 @@
         .background-overlay {
             animation: fadeInUp 2s ease-out;
         }
+
+        .site-footer {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 50px 0 0;
+            font-family: "Poppins", sans-serif;
+            padding-bottom: 0px;
+          }
+          
+          .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 75%;
+            margin: 0 auto;
+            padding: 0 20px;
+            justify-content: space-between;
+          }
+          
+          /* Left column */
+          .footer-left {
+            flex: 1;
+            min-width: 250px;
+            padding-right: 20px;
+          }
+          
+          .footer-logo-container {
+            margin-bottom: 20px;
+          }
+          
+          .main-logo {
+            width: 180px;
+            margin-bottom: 5px;
+          }
+          
+          .tagline {
+            font-size: 14px;
+            font-style: italic;
+            margin: 0;
+            color: #000000;
+          }
+          
+          .contact-info p {
+            margin: 20px 0;
+            font-size: 12px;
+          }
+          
+          .social-icons {
+            display: flex;
+            margin: 60px 0;
+          }
+          
+          .social-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #000000;
+            margin-right: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+          }
+          
+          .social-icons a:hover {
+            background-color: #ffcc00;
+            color: #000000;
+          }
+          
+          .flag-container {
+            display: flex;
+            margin-top: 15px;
+            margin-bottom: 20px;
+          }
+          
+          .footer-flag {
+            width: 40px;
+            height: auto;
+            margin-right: 10px;
+            border: 1px solid #fff;
+          }
+          
+          /* Middle column */
+          .footer-middle {
+            flex: 1;
+            min-width: 200px;
+            padding: 0 20px;
+          }
+          
+          /* Right column */
+          .footer-right {
+            flex: 1;
+            min-width: 250px;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+          }
+          
+          .footer-column {
+            margin-bottom: 30px;
+          }
+          
+          .footer-column h3 {
+            color: #ffcc00;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+          }
+          
+          .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+          }
+          
+          .footer-column ul li {
+            margin-bottom: 10px;
+          }
+          
+          .footer-column ul li a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.3s ease;
+          }
+          
+          .footer-column ul li a:hover {
+            color: #ffcc00;
+          }
+          
+          .footer-brand {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+          }
+          
+          .powered-by {
+            color: #000000;
+            font-size: 14px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            font-style: italic;
+          }
+          
+          .footer-brand-logo {
+            width: 120px;
+            margin-bottom: 10px;
+          }
 
         /* Stagger animations for mobile */
         @media (max-width: 768px) {
@@ -1443,4 +1596,55 @@
         });
     </script>
 </body>
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <p>Toll-free: (833) 553-4119</p>
+                    <p>Local: (778) 655-5135</p>
+                    <p>info@wisekapital.com</p>
+                </div>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61578091685870" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 30 30">
+                    <path d="M26.37,26l-8.795-12.822l0.015,0.012L25.52,4h-2.65l-6.46,7.48L11.28,4H4.33l8.211,11.971L12.54,15.97L3.88,26h2.65 l7.182-8.322L19.42,26H26.37z M10.23,6l12.34,18h-2.1L8.12,6H10.23z"></path>
+                    </svg></a>
+                <a href="https://www.tiktok.com/@travelroyalz?is_from_webapp=1&sender_device=pc" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+
+            </div> 
+
+        </div>
+        <div class="footer-middle">
+            <div class="footer-column">
+                <h3>Travel Resources</h3>
+                <ul>
+                    <li><a href="https://royalcruize.com/">Royalcruize</a></li>
+                    <li><a href="https://royaltravelz.com/RM-RivieraMaya">Riviera Maya</a></li>
+                    <li><a href="https://royaltravelz.com/Caribbean">Caribbean</a></li>
+                    <li><a href="https://royaltravelz.com/Relax">Relax</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-right">
+            <div class="footer-column">
+                <h3>The Legal Bits</h3>
+                <ul>
+                    <li><a href="./documents/Terms and Conditions.pdf" target="_blank">Terms & Conditions</a></li>
+                    <li><a href="./documents/Privacy Policy.pdf" target="_blank">Privacy Policy</a></li>
+                    <li><a href="./documents/Cookie Policy.pdf" target="_blank">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-brand">
+                <span class="powered-by">Powered by:</span>
+                <img src="./images/WiseKapital-Logo.svg" alt="WiseKapital Brand" class="footer-brand-logo">
+            </div>
+        </div> 
+    </div>
+
+
+</footer>
 </html>
